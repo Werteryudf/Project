@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- Аватарка -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="49dp"
+        android:layout_height="56dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Текстовая информация -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical">
+
+        <!-- Имя пользователя -->
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dean Winchester"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Время/статус -->
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="now following you · 1h"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <!-- Кнопка Follow -->
+    <Button
+        android:id="@+id/followButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Follow"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        app:background="@null"
+        android:backgroundTint="#1FCC79" />
+
+</LinearLayout>
