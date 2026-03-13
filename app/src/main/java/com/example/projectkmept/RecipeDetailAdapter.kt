@@ -26,6 +26,7 @@ class InfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val likesContainer: LinearLayout = itemView.findViewById(R.id.likesContainer)
     val heartIcon: ImageView = itemView.findViewById(R.id.heartIcon)
     val likesCount: TextView = itemView.findViewById(R.id.likesCount)
+
     val foodDescription: TextView = itemView.findViewById(R.id.foodDescription)
 }
 
@@ -34,9 +35,6 @@ class SectionTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
 
 class IngredientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val ingredientRow: LinearLayout = itemView.findViewById(R.id.ingredientRow)
-    val checkCircle: FrameLayout = itemView.findViewById(R.id.checkCircle)
-    val checkIcon: ImageView = itemView.findViewById(R.id.checkIcon)
     val ingredientName: TextView = itemView.findViewById(R.id.ingredientName)
 }
 
@@ -114,12 +112,6 @@ class RecipeDetailAdapter(
             is IngredientItem -> {
                 holder as IngredientViewHolder
                 holder.ingredientName.text = item.name
-                applyCheckState(holder, item)
-
-                holder.ingredientRow.setOnClickListener {
-                    item.isChecked = !item.isChecked
-                    applyCheckState(holder, item)
-                }
             }
 
             is StepItem -> {
@@ -150,20 +142,5 @@ class RecipeDetailAdapter(
         holder.likesCount.text = "${item.likes} Likes"
     }
 
-    private fun applyCheckState(holder: IngredientViewHolder, item: IngredientItem) {
-        val ctx = holder.itemView.context
-        if (item.isChecked) {
-            holder.checkCircle.setBackgroundResource(R.drawable.bg_circle_checked)
-            holder.checkIcon.visibility = View.VISIBLE
-            holder.ingredientName.paintFlags =
-                holder.ingredientName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            holder.ingredientName.setTextColor(android.graphics.Color.parseColor("#8E8E93"))
-        } else {
-            holder.checkCircle.setBackgroundResource(R.drawable.bg_circle_unchecked)
-            holder.checkIcon.visibility = View.GONE
-            holder.ingredientName.paintFlags =
-                holder.ingredientName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-            holder.ingredientName.setTextColor(android.graphics.Color.parseColor("#1C1C1E"))
-        }
-    }
+
 }
