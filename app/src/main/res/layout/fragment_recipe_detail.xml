@@ -1,10 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/detailRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:overScrollMode="never"
-    android:clipToPadding="false"
-    android:paddingBottom="32dp" />
+    android:background="#000000">
+
+    <!-- Картинка сзади — стоит на месте -->
+    <ImageView
+        android:id="@+id/foodImage"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Food Image" />
+
+    <!-- Скролл занимает ВЕСЬ экран — но внутри сверху пустое место под картинку -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Прозрачное пространство под картинку — через него видна картинка -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@android:color/transparent" />
+
+            <!-- Белый лист с закруглёнными углами -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_top_background"
+                android:paddingBottom="40dp">
+
+                <!-- Ручка -->
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/handle_background" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detailRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Кнопки поверх всего -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="start|top"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_back_button"
+        android:src="@drawable/ic_back"
+        android:contentDescription="Back" />
+
+    <ImageButton
+        android:id="@+id/favoriteButton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_back_button"
+        android:src="@drawable/ic_bookmark"
+        android:contentDescription="Favorite" />
+
+</FrameLayout>

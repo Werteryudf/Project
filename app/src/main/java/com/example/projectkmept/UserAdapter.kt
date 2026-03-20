@@ -41,6 +41,7 @@ class UsersAdapter(
         Glide.with(holder.itemView.context)
             .load(currentUser.foodImageUrl)
             .centerCrop()
+            .override(1080, 1080)  // ← добавь эту строку
             .into(holder.foodImageView)
 
         // Клик по карточке

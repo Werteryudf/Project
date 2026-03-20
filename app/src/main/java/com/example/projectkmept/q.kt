@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.projectkmept.romaniuc.UsersAdapter
 
 class RecipeDetailFragment : Fragment() {
 
-    // База данных рецептов по типу блюда
     private val recipeDatabase = mapOf(
         "Pancake" to Pair(
             listOf("4 Eggs", "1/2 Cup Butter", "2 Cups Flour", "1 Cup Milk"),
@@ -86,23 +88,35 @@ class RecipeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.detailRecyclerView)
+        val foodImage: ImageView = view.findViewById(R.id.foodImage)
+        val backButton: ImageButton = view.findViewById(R.id.backButton)
+
+        recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val args = arguments ?: return
-        val title       = args.getString("foodTitle", "Pancake")
-        val authorName  = args.getString("authorName", "")
-        val category    = args.getString("category", "Food")
-        val cookingTime = args.getString("cookingTime", "")
-        val avatarUrl   = args.getString("avatarUrl", "")
-        val foodImageUrl= args.getString("foodImageUrl", "")
+        val title        = args.getString("foodTitle", "Pancake")
+        val authorName   = args.getString("authorName", "")
+        val category     = args.getString("category", "Food")
+        val cookingTime  = args.getString("cookingTime", "")
+        val avatarUrl    = args.getString("avatarUrl", "")
+        val foodImageUrl = args.getString("foodImageUrl", "")
+
+        Glide.with(requireContext())
+            .load(foodImageUrl)
+            .centerCrop()
+            .into(foodImage)
+
+        backButton.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
         val (ingredients, steps) = recipeDatabase[title] ?: recipeDatabase["Pancake"]!!
 
-        // Собираем список ячеек согласно заданию
         val items: MutableList<Item> = mutableListOf(
             InfoItem(
                 name = title,
-                description = "Your recipe for $title has been uploaded. You can see it on your profile.",
+                description = "Your recipe for $title has been uploaded. You can see it on your profile. Your recipe has been uploaded, you can see it on your",
                 category = category,
                 cookingTime = cookingTime,
                 avatarUrl = avatarUrl,
@@ -114,22 +128,24 @@ class RecipeDetailFragment : Fragment() {
             SectionTitleItem("Ingredients")
         )
 
-        // Добавляем ингредиенты
         for (ing in ingredients) {
             items.add(IngredientItem(ing))
         }
 
-        // Добавляем шаги
         items.add(SectionTitleItem("Steps"))
         steps.forEachIndexed { index, instruction ->
-            // Первый и третий шаг — с картинкой еды, второй — без
             val imageUrl = if (index % 2 == 0) foodImageUrl else ""
             items.add(StepItem(index + 1, instruction, imageUrl))
         }
 
-        val adapter = RecipeDetailAdapter(items) {
+        recyclerView.adapter = RecipeDetailAdapter(items) {
             parentFragmentManager.popBackStack()
         }
-        recyclerView.adapter = adapter
+        Glide.with(requireContext())
+            .load(foodImageUrl)
+            .centerCrop()
+            .override(1080, 1920)  // ← принудительно высокое разрешение
+            .into(foodImage)
     }
+
 }
