@@ -15,6 +15,7 @@ class InfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val foodTitle: TextView       = itemView.findViewById(R.id.foodTitle)
     val foodDetails: TextView     = itemView.findViewById(R.id.foodDetails)
     val authorAvatar: ImageView   = itemView.findViewById(R.id.authorAvatar)
+    val authorName: TextView      = itemView.findViewById(R.id.authorName)
     val likesContainer: LinearLayout = itemView.findViewById(R.id.likesContainer)
     val heartIcon: ImageView      = itemView.findViewById(R.id.heartIcon)
     val likesCount: TextView      = itemView.findViewById(R.id.likesCount)
